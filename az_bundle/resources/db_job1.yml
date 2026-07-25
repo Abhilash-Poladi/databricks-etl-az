@@ -5,21 +5,21 @@ resources:
       tasks:
         - task_key: run_bronze
           notebook_task:
-            notebook_path: ../notebooks/bronze.py
+            notebook_path: ../notebooks/bronze.ipynb
             source: WORKSPACE
           job_cluster_key: Job_cluster
         - task_key: run_silver
           depends_on:
             - task_key: run_bronze
           notebook_task:
-            notebook_path: ../notebooks/silver.py
+            notebook_path: ../notebooks/silver.ipynb
             source: WORKSPACE
           job_cluster_key: Job_cluster
         - task_key: run_gold
           depends_on:
             - task_key: run_silver
           notebook_task:
-            notebook_path: ../notebooks/gold.py
+            notebook_path: ../notebooks/gold.ipynb
             source: WORKSPACE
           job_cluster_key: Job_cluster
       job_clusters:
