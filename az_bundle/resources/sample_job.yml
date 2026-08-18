@@ -1,0 +1,29 @@
+resources:
+  jobs:
+    job1:
+      name: job1
+      schedule:
+        quartz_cron_expression: 26 35 23 * * ?
+        timezone_id: Asia/Calcutta
+        pause_status: PAUSED
+      tasks:
+        - task_key: nb1
+          notebook_task:
+            notebook_path: /Workspace/Users/abhilash.poladi@ctpsandbox.com/nb1.py
+            source: WORKSPACE
+        - task_key: nb2
+          depends_on:
+            - task_key: nb1
+          notebook_task:
+            notebook_path: /Workspace/Users/abhilash.poladi@ctpsandbox.com/nb2.py
+            source: WORKSPACE
+      queue:
+        enabled: true
+      parameters:
+        - name: pipeline_type
+          default: incremental
+        - name: start_dt
+          default: "{{job.start_time.iso_date}}"
+        - name: end_dt
+          default: "{{job.start_time.iso_date}}"
+      performance_target: PERFORMANCE_OPTIMIZED
